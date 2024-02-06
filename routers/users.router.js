@@ -9,12 +9,12 @@ router.post("/sign-up", async (req, res, next) => {
   try {
     const { email, password, Checkpass, name } = req.body;
     if (password.length < 6) {
-      return res.status(409).json({
+      return res.status(400).json({
         message: "비밀번호가 6자 이상이어야 됩니다.",
       });
     }
     if (password !== Checkpass) {
-      return res.status(409).json({
+      return res.status(400).json({
         message: "비밀번호 확인과 일치해야 합니다.",
       });
     }
@@ -24,7 +24,7 @@ router.post("/sign-up", async (req, res, next) => {
       },
     });
     if (isExistUser) {
-      return res.status(409).json({ message: "이미 존재하는 이메일입니다." });
+      return res.status(400).json({ message: "이미 존재하는 이메일입니다." });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const [user] = await prisma.$transaction(

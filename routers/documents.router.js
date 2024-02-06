@@ -14,7 +14,7 @@ router.post("/resume", authMiddleware, async (req, res, next) => {
     "FINAL_PASS",
   ];
   if (!Statuses.includes(status)) {
-    return res.status(409).json({
+    return res.status(400).json({
       message: "이력서 상태가 이상합니다.",
     });
   }
@@ -87,7 +87,7 @@ router.put("/resume/:resumeId", authMiddleware, async (req, res, next) => {
     const { resumeId } = req.params;
     const { title, content, status } = req.body;
     if (!status.includes(status)) {
-      return res.status(409).json({
+      return res.status(400).json({
         message: "이력서 상태가 이상합니다.",
       });
     }

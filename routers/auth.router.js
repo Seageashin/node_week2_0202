@@ -8,9 +8,9 @@ const { JWT_SECRET } = process.env;
 router.post('/signup', async (req, res) => {
   try {
     const { email, password, name } = req.body;
-    
+
     // Create user using Prisma
-    const user= await prisma.users.create({ data: { email, password, name } });
+    const user = await prisma.users.create({ data: { email, password, name } });
 
     // Return user data (excluding password)
     res.status(201).json({ id: user.id, email: user.email, name: user.name });
